@@ -26,7 +26,6 @@ userEntity.prototype.authenticate = function (dadosForm, req, res){
         query: {usuario: {$eq: dadosForm.user}, senha: {$eq: dadosForm.pass}}, //query de execução
         collection: "user", //string indicando collection que será manipulada
         callback: function(err, result) { //função que trata a resposta do banco
-            console.log(result);
             if ( result[0] != undefined ){
                 req.session.loged = true;// Criar variavel de sessao
                 req.session.user = result[0].user;
