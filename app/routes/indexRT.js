@@ -4,7 +4,6 @@ module.exports = function(application){
 	});
 
 	application.post('/auth', function(req, res){
-		console.log('autenticando');
 		application.app.controllers.indexDAO.authenticate(application, req, res);
 	});
 }

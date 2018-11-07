@@ -3,8 +3,6 @@ module.exports.index = function(application, req, res) {
 }
 
 module.exports.authenticate = function(application, req, res) {
-    console.log('autenticando no controller');
-
     var dadosForm = req.body;
 
     req.assert('user', 'Campo usuário não pode ser vazio').notEmpty();
@@ -17,6 +15,10 @@ module.exports.authenticate = function(application, req, res) {
         return;
     }
 
+    var connDB = application.config.connectionDB;
+    var userEntity = new application.app.models.userEntity(connDB);
 
-    res.send('Sessão criada');
+    userEntity.authenticate(dadosForm, req, res);
+
+    //res.send('Sessão criada');
 }

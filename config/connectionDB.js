@@ -17,12 +17,15 @@ var connMongoDB = function(dados) { //dados são passados como parametros
     });
 }
 
-//função cirada para evitar repetiçao de codigo
+//função criada para evitar repetiçao de codigo
 function query(db, dados) {
     var collection = db.collection(dados.collection);
     switch (dados.operacao) {
         case "inserir":
             collection.insertOne(dados.user, dados.callback);
+            break;
+        case "findAuth":
+            collection.find(dados.query).toArray(dados.callback);
             break;
         default:
             break;
