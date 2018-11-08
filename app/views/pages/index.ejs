@@ -8,6 +8,8 @@
 
 	<!-- JQuery -->
 	<script src="js/jquery-2.2.1.js"></script>
+	<script src="js/index.js"></script>
+	<script src="js/behavior.js"></script>
 
 	<!-- bootstrap - link cdn -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -24,10 +26,10 @@
 		<div class="container">
 			<form class="form-inline form-entrar" action="/auth" method="POST">
 				<div class="form-group">
-					<input type="text" name="user" id="user" placeholder="Usuário" class="form-control" autocomplete="off" />
+					<input type="text" name="user" id="user" placeholder="Usuário" class="form-control" autocomplete="off" value="<%=dadosForm.user%>" />
 					<input type="password" name="pass" id="pass" placeholder="Senha" class="form-control" />
-					<button type="submit" class="btn btn-success">Entrar</button>
-					<button type="button" class="btn btn-info">Cadastro</button>
+					<button id="login_btn" type="submit" class="btn btn-success">Entrar</button>
+					<button id="register_btn" type="button" class="btn btn-info">Cadastro</button>
 				</div>
 			</form>
 		</div>
@@ -45,6 +47,14 @@
 			</lu>
 		</div>
 		<% } %>
+		<% if (JSON.stringify(info) != "{}") { %>
+		<div class="alert alert-info">
+			<li>
+				<%= info %>
+			</li>
+		</div>
+		<% } %>
+
 		<div class="row">
 			<div class="col-md-2"></div>
 

@@ -2,19 +2,25 @@ function userEntity(connDB) {
     this._connection = connDB; //Underline implica que a variavel é privada
 }
 
-userEntity.prototype.insertUser = function (user, res){
+userEntity.prototype.insertUser = function (dadosForm, res){
     /* versão MongoDB 2.0
     this._connection.open( function(err, mongoClient){
         mongoClient.collection("users", function(err, collection) {
-            collection.insert(user);
+            collection.insert(dadosForm);-
         });
     }); //abre conexão MongoDB
     */
     var dados = {
         operacao: "inserir", //string com a operação filtrada no switch
-        user: user,
+        dadosForm: dadosForm,
         collection: "user", //string indicando collection que será manipulada
         callback: function(err, result) { //função que trata a resposta do banco
+            if ( result.ops[0] != undefined ){
+                res.render('index', {validacao: {}, dadosForm: {}, info: 'Usuário '+result.ops[0].nome+' Cadastrado' });
+            } else {
+                console.log(err);
+                res.render('cadastro', {validacao : {}, dadosForm : dadosForm});
+            }
         }
     };
     this._connection(dados);
@@ -30,11 +36,10 @@ userEntity.prototype.authenticate = function (dadosForm, req, res){
                 req.session.loged = true;// Criar variavel de sessao
                 req.session.user = result[0].user;
                 req.session.house = result[0].casa
-            }
-            if (req.session.loged) {
                 res.redirect("jogo");
             } else {
-                res.render("index", {validacao: {}});
+                req.session.loged = false;
+                res.render("index", {validacao: {}, dadosForm : {}, info: {}});
             }
         }
     };

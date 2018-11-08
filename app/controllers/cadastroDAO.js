@@ -22,7 +22,5 @@ module.exports.cadastrar = function(application, req, res) {
 
     var userEntity = new application.app.models.userEntity(connDB);
 
-    userEntity.insertUser(dadosForm);
-
-    res.send('Cadastrado');
+    userEntity.insertUser(dadosForm, res); //O callback já redireciona a página (userEntity)
 }
