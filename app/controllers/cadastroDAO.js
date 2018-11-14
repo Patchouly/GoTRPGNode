@@ -21,6 +21,14 @@ module.exports.cadastrar = function(application, req, res) {
     var connDB = application.config.connectionDB;
 
     var userEntity = new application.app.models.userEntity(connDB);
+    var jogoEntity = new application.app.models.jogoEntity(connDB);
+
+    var info = [];
 
     userEntity.insertUser(dadosForm, res); //O callback já redireciona a página (userEntity)
+    info.push({msg: 'Usuário Cadastrado'});
+    jogoEntity.generateAttributes(dadosForm.usuario, res);
+    info.push({msg: 'Atributos gerados'});
+
+    res.render('index', {validacao: {}, dadosForm: {}, info: info });
 }

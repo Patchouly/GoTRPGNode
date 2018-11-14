@@ -22,9 +22,9 @@ function query(db, dados) {
     var collection = db.collection(dados.collection);
     switch (dados.operacao) {
         case "inserir":
-            collection.insertOne(dados.user, dados.callback);
+            collection.insertOne(dados.dadosForm, dados.callback);
             break;
-        case "findAuth":
+        case "find":
             collection.find(dados.query).toArray(dados.callback);
             break;
         default:

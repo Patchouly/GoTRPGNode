@@ -47,11 +47,15 @@
 			</lu>
 		</div>
 		<% } %>
-		<% if (JSON.stringify(info) != "{}") { %>
+		<% if (info.length > 0) { %>
 		<div class="alert alert-info">
-			<li>
-				<%= info %>
-			</li>
+			<lu>
+				<% for (i = 0; i < info.length; i++) { %>
+				<li>
+					<%= info[i].msg %>
+				</li>
+				<% } %>
+			</lu>
 		</div>
 		<% } %>
 

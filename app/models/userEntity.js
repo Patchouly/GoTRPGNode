@@ -15,11 +15,10 @@ userEntity.prototype.insertUser = function (dadosForm, res){
         dadosForm: dadosForm,
         collection: "user", //string indicando collection que será manipulada
         callback: function(err, result) { //função que trata a resposta do banco
-            if ( result.ops[0] != undefined ){
-                res.render('index', {validacao: {}, dadosForm: {}, info: 'Usuário '+result.ops[0].nome+' Cadastrado' });
-            } else {
+            if ( err ){
                 console.log(err);
-                res.render('cadastro', {validacao : {}, dadosForm : dadosForm});
+                res.render('cadastro', {validacao : [{msg: 'Problema durante geração de atributos'}], dadosForm : dadosForm});
+            } else {
             }
         }
     };
@@ -27,8 +26,9 @@ userEntity.prototype.insertUser = function (dadosForm, res){
 }
 
 userEntity.prototype.authenticate = function (dadosForm, req, res){
+    console.log(dadosForm);
     var dados = {
-        operacao: "findAuth", //string com a operação filtrada no switch
+        operacao: "find", //string com a operação filtrada no switch
         query: {usuario: {$eq: dadosForm.user}, senha: {$eq: dadosForm.pass}}, //query de execução
         collection: "user", //string indicando collection que será manipulada
         callback: function(err, result) { //função que trata a resposta do banco
@@ -39,7 +39,7 @@ userEntity.prototype.authenticate = function (dadosForm, req, res){
                 res.redirect("jogo");
             } else {
                 req.session.loged = false;
-                res.render("index", {validacao: {}, dadosForm : {}, info: {}});
+                res.render("index", {validacao: [{msg: 'Campo de usuário ou senha está incorreto'}], dadosForm : dadosForm, info: {}});
             }
         }
     };
