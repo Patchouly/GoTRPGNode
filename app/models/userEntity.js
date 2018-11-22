@@ -26,7 +26,6 @@ userEntity.prototype.insertUser = function (dadosForm, res){
 }
 
 userEntity.prototype.authenticate = function (dadosForm, req, res){
-    console.log(dadosForm);
     var dados = {
         operacao: "find", //string com a operação filtrada no switch
         query: {usuario: {$eq: dadosForm.user}, senha: {$eq: dadosForm.pass}}, //query de execução
@@ -34,7 +33,7 @@ userEntity.prototype.authenticate = function (dadosForm, req, res){
         callback: function(err, result) { //função que trata a resposta do banco
             if ( result[0] != undefined ){
                 req.session.loged = true;// Criar variavel de sessao
-                req.session.user = result[0].user;
+                req.session.user = result[0].usuario;
                 req.session.house = result[0].casa
                 res.redirect("jogo");
             } else {

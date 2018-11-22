@@ -4,15 +4,11 @@ module.exports.jogo = function(application, req, res) {
         return;
     }
 
-    var user = req.session.user;
-
     var connDB = application.config.connectionDB;
-
     var jogoEntity = new application.app.models.jogoEntity(connDB);
 
-    jogoEntity.iniciarJogo(user);
-
-    res.render('jogo', {house: req.session.house, validacao : {}, info : {}});
+    var user = req.session.user;
+    jogoEntity.iniciarJogo(user, req.session.house, res);
 }
 
 module.exports.logout = function(application, req, res) {

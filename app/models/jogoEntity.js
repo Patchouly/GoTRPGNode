@@ -32,16 +32,15 @@ jogoEntity.prototype.generateAttributes = function(dadosForm, res) {
     this._connection(dados);
 }
 
-jogoEntity.prototype.iniciarJogo = function(user) {
+jogoEntity.prototype.iniciarJogo = function(user, house, res) {
     var dados = {
         operacao: "find", //string com a operação filtrada no switch
         query: {user: {$eq: user}}, //query de execução
         collection: "jogo", //string indicando collection que será manipulada
         callback: function(err, result) { //função que trata a resposta do banco
             if ( result[0] != undefined ){
-                console.log(result[0]);
+                res.render('jogo', {house: house, validacao : {}, info : {}, jogo: result[0]});
             } else {
-                
             }
         }
     };
