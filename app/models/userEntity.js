@@ -3,15 +3,8 @@ function userEntity(connDB) {
 }
 
 userEntity.prototype.insertUser = function (dadosForm, res){
-    /* versão MongoDB 2.0
-    this._connection.open( function(err, mongoClient){
-        mongoClient.collection("users", function(err, collection) {
-            collection.insert(dadosForm);-
-        });
-    }); //abre conexão MongoDB
-    */
     var dados = {
-        operacao: "inserir", //string com a operação filtrada no switch
+        operacao: "insert", //string com a operação filtrada no switch
         dadosForm: dadosForm,
         collection: "user", //string indicando collection que será manipulada
         callback: function(err, result) { //função que trata a resposta do banco

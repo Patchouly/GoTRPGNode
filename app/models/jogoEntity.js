@@ -18,7 +18,7 @@ jogoEntity.prototype.generateAttributes = function(dadosForm, res) {
     }
 
     var dados = {
-        operacao: "inserir", //string com a operação filtrada no switch
+        operacao: "insert", //string com a operação filtrada no switch
         dadosForm: attributes,
         collection: "jogo", //string indicando collection que será manipulada
         callback: function(err, result) { //função que trata a resposta do banco
@@ -32,18 +32,22 @@ jogoEntity.prototype.generateAttributes = function(dadosForm, res) {
     this._connection(dados);
 }
 
-jogoEntity.prototype.iniciarJogo = function(req, res, con_error) {
+jogoEntity.prototype.iniciarJogo = function(req, res, msg) {
     var dados = {
         operacao: "find", //string com a operação filtrada no switch
         query: {user: {$eq: req.session.user}}, //query de execução
         collection: "jogo", //string indicando collection que será manipulada
         callback: function(err, result) { //função que trata a resposta do banco
             if ( result[0] != undefined ){
-                var erro = []
-                if (con_error == 'y') {
+                var erro = [];
+                var info = [];
+                if (msg == 'error') {
                     erro.push({msg: 'Ordem incompleta'});
                 }
-                res.render('jogo', {house: req.session.house, validacao : erro, info : {}, jogo: result[0]});
+                if (msg == 'ok') {
+                    info.push({msg: "Job's Done!"});
+                }
+                res.render('jogo', {house: req.session.house, validacao : erro, info : info, jogo: result[0]});
             } else {
             }
         }
@@ -52,21 +56,41 @@ jogoEntity.prototype.iniciarJogo = function(req, res, con_error) {
 }
 
 jogoEntity.prototype.order = function(req, res, dadosForm) {
+
+    var date = new Date();
+    var duration = null;
+    switch(dadosForm.acao){
+        case 1: 
+            duration = 1 * 1 * 60000;
+            break;
+        case 2: 
+            duration = 2 * 1 * 60000;
+            break;
+        case 3: 
+            duration = 5 * 1 * 60000;
+            break;
+        case 4: 
+            duration = 5 * 1 * 60000;
+            break;
+    }
+    var attributes = {
+        user: req.session.user,
+        timeout: date.getTime() + duration, //retorna o valor em mili entre 01/01/1970 até hoje
+        qtd: dadosForm.qtd,
+    };
+
     var dados = {
-        operacao: "find", //string com a operação filtrada no switch
-        query: {user: {$eq: req.session.user}}, //query de execução
-        collection: "jogo", //string indicando collection que será manipulada
+        operacao: "insert", //string com a operação filtrada no switch
+        dadosForm: attributes, //query de execução
+        collection: "order", //string indicando collection que será manipulada
         callback: function(err, result) { //função que trata a resposta do banco
-            if ( result[0] != undefined ){
-                var erro = []
-                if (con_error == 'y') {
-                    erro.push({msg: 'Ordem incompleta'});
-                }
-                res.render('jogo', {house: req.session.house, validacao : erro, info : {}, jogo: result[0]});
+            if ( err ){
+                res.render('jogo', {house: req.session.house, validacao : [{msg: 'Insert falhou!'}], info : {}, jogo: {}});
             } else {
             }
         }
     };
+    console.log(dados);
     this._connection(dados);
 }
 

@@ -20,35 +20,19 @@ var connMongoDB = function(dados) { //dados são passados como parametros
 function query(db, dados) {
     var collection = db.collection(dados.collection);
     switch (dados.operacao) {
-        case "inserir":
+        case "insert":
             collection.insertOne(dados.dadosForm, dados.callback);
             break;
         case "find":
             collection.find(dados.query).toArray(dados.callback);
             break;
+        case "update":
+            //collection.find(dados.query).toArray(dados.callback);
+            break;
         default:
             break;
     }
 }
-
-//versaõ 2.0
-/*var mongo = require('mongodb');
-
-//faz com que não conecte com o banco ao subir o servidor
-//metodo wrapper
-var connMongoDB = function() { 
-    console.log('Carregou conexão');
-    var db = new mongo.Db(
-        'got',
-        new mongo.Server(
-            'localhost',
-            '27017',
-            {}
-        ),
-        {}
-    );
-	return db;
-}*/
 
 module.exports = function() {
     return connMongoDB; //retorna um objeto com a conexão, sem necessariamente conecta-lo
