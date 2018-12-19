@@ -1,8 +1,13 @@
+var crypto = require("crypto");//Importa o modulo do crypto
+
 function userEntity(connDB) {
     this._connection = connDB; //Underline implica que a variavel é privada
 }
 
 userEntity.prototype.insertUser = function (dadosForm, res){
+
+    dadosForm.senha = crypto.createHash("md5").update(dadosForm.senha).digest("hex"); //criptografa em md5
+
     var dados = {
         operacao: "insert", //string com a operação filtrada no switch
         dadosForm: dadosForm,
@@ -19,6 +24,9 @@ userEntity.prototype.insertUser = function (dadosForm, res){
 }
 
 userEntity.prototype.authenticate = function (dadosForm, req, res){
+
+    dadosForm.pass = crypto.createHash("md5").update(dadosForm.pass).digest("hex"); //criptografa em md5
+    
     var dados = {
         operacao: "find", //string com a operação filtrada no switch
         query: {usuario: {$eq: dadosForm.user}, senha: {$eq: dadosForm.pass}}, //query de execução

@@ -8,6 +8,11 @@
 *
 * - git config --global http.proxy http://username:password@proxiURL:proxiPort
 *
+* - npm config set proxy http://9435948:ZulJin_86@ibes37.banese.com.br:8080
+* - npm config set https-proxy http://9435948:ZulJin_86@ibes37.banese.com.br:8080
+*
+* - git config --global http.proxy http://9435948:ZulJin_86@ibes37.banese.com.br:8080
+*
 * - Escolhe um diretório para o novo projeto NodeJs e inicia o NPM {npm init} (cria um projeto node na pasta selecionada)
 * - Testar o novo projeto com o comando {node <app>}
 * - Instala o Express {npm install express --save} (--save inclue a instalação na pasta node_modules do projeto)
@@ -19,6 +24,7 @@
 * - Instalar body-parser {npm install body-parser --save} (plugin do express para preencher os dados enviados pelo post no model)
 * - Instalar express validator {npm install express-validator --save} (plugin que valida os dados do post)
 * - Instalar express-session {npm install express-session --save} (plugin para manipular cookies)
+* - Instalar o crypto {npm install crypto --save} (plugin para criptografar dados)
 */
 
 /* importar o módulo do framework express */

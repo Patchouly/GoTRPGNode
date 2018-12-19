@@ -24,7 +24,7 @@ function query(db, dados) {
             collection.insertOne(dados.dadosForm, dados.callback);
             break;
         case "find":
-            collection.find(dados.query).toArray(dados.callback);
+            collection.find(dados.query).toArray(dados.callback); 
             break;
         case "update":
             //collection.find(dados.query).toArray(dados.callback);
