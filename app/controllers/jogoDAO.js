@@ -23,7 +23,8 @@ module.exports.logout = function(application, req, res) {
 
 module.exports.suditos = function(application, req, res) {
     if (!req.session.loged) {
-        res.render("index", {validacao : [{msg: 'Usuário não autenticado'}], dadosForm : {}, info: {} });
+        res.send('logout');
+        //res.render("index", {validacao : [{msg: 'Usuário não autenticado'}], dadosForm : {}, info: {} });
         return;
     }
     res.render("aldeoes");
@@ -31,10 +32,15 @@ module.exports.suditos = function(application, req, res) {
 
 module.exports.pergaminhos = function(application, req, res) {
     if (!req.session.loged) {
-        res.render("index", {validacao : [{msg: 'Usuário não autenticado'}], dadosForm : {}, info: {} });
+        res.send('logout');
+        //res.render("index", {validacao : [{msg: 'Usuário não autenticado'}], dadosForm : {}, info: {} });
         return;
     }
-    res.render("pergaminhos");
+
+    var connDB = application.config.connectionDB;
+    var jogoEntity = new application.app.models.jogoEntity(connDB);
+
+    jogoEntity.getOrders(req, res);
 }
 
 module.exports.ordenar = function(application, req, res) {
@@ -61,5 +67,14 @@ module.exports.ordenar = function(application, req, res) {
     jogoEntity.order(req, res, dadosForm);
 
     res.redirect('jogo?msg=ok');
+}
+
+module.exports.revogar = function(application, req, res) {
+    var dadosForm = req.query;
+
+    var connDB = application.config.connectionDB;
+    var jogoEntity = new application.app.models.jogoEntity(connDB);
+
+    jogoEntity.removeOrder(req, res, dadosForm);
 }
 

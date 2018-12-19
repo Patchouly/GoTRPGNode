@@ -2,9 +2,27 @@
 	<h3>Pergaminhos</h3>
 	
 	<ul>
-		<li>1 enforcamento(s) programado - <small>restam 00000 segundos - <a href="#">revogar ordem</a></small></li>
-		<li>2 aldeão(ões) em treinamento de magia - <small>restam 00000 segundos - <a href="#">revogar ordem</a></small></li>
-		<li>1 aldeão(ões) em treinamento de história - <small>restam 00000 segundos - <a href="#">revogar ordem</a></small></li>
-		<li>5 aldeão(ões) coletando recursos - <small>restam 00000 segundos - <a href="#">revogar ordem</a></small></li>
+		<% 
+			for(var i = 0; i < orders.length; i++) { 
+				var action_text = '';
+				switch(parseInt(orders[i].action)) {
+					case 1: action_text = 'aldeão(ões) coletando recursos'; break;
+					case 2: action_text = 'enforcamento(s) programado'; break;
+					case 3: action_text = 'aldeão(ões) em treinamento de história'; break;
+					case 4: action_text = 'aldeão(ões) em treinamento de magia'; break;
+				}
+				var time = Math.round((orders[i].timeout - new Date().getTime()) / 1000);
+
+				if (time > 0) { 
+		%>
+				<li><%= orders[i].qtd %> <%= action_text %>. <small>restam <span class="timer"><%= time %></span> segundos - <a href="/ixnay?id=<%=orders[i]._id%>">revogar ordem</a></small></li>
+		<% 
+				} else {
+		%>
+				<li><%= orders[i].qtd %> <%= action_text %>. <small> Terminado</small></li>
+		<% 
+				}
+			} 
+		%>
 	</ul>
 </div>

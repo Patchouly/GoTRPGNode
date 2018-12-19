@@ -18,4 +18,8 @@ module.exports = function(application){
 	application.post('/order', function(req, res){
 		application.app.controllers.jogoDAO.ordenar(application, req, res);
 	});
+
+	application.get('/ixnay', function(req, res){
+		application.app.controllers.jogoDAO.revogar(application, req, res);
+	});
 }

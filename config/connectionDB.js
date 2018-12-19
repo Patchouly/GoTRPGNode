@@ -29,6 +29,12 @@ function query(db, dados) {
         case "update":
             //collection.find(dados.query).toArray(dados.callback);
             break;
+        case "updateInc":
+            collection.update(dados.query, dados.update);
+            break;
+        case "remove":
+            collection.remove(dados.query);
+            break;
         default:
             break;
     }

@@ -8,6 +8,9 @@ $(document).ready(function() {
             url: '/suditos',
             method: "get",
             success:function(data) {
+                if (data === 'logout') {
+                    $('#logout_btn').click();
+                }
                 $('#acoes').html(data);
             }
         });
@@ -18,8 +21,27 @@ $(document).ready(function() {
             url: '/pergaminhos',
             method: "get",
             success:function(data) {
+                if (data === 'logout') {
+                    $('#logout_btn').click();
+                }
                 $('#acoes').html(data); 
+                clearTimeout(timerInstance);
+                cronometro();
             }
         });
     });
 });
+
+var timerInstance = null; //evita que várias instancias desse metodo sejam ativas
+function cronometro() {
+    $('.timer').each(function(){
+        var seconds = $(this).html();
+        var updatedTime = parseInt(seconds) - 1;
+        if (updatedTime < 0) {
+            $('#btn_pergaminhos').click();
+        } else {
+            $(this).html(updatedTime)
+        }
+    });
+    timerInstance = setTimeout('cronometro()', 1000);
+}
