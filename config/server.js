@@ -8,11 +8,6 @@
 *
 * - git config --global http.proxy http://username:password@proxiURL:proxiPort
 *
-* - npm config set proxy http://9435948:ZulJin_86@ibes37.banese.com.br:8080
-* - npm config set https-proxy http://9435948:ZulJin_86@ibes37.banese.com.br:8080
-*
-* - git config --global http.proxy http://9435948:ZulJin_86@ibes37.banese.com.br:8080
-*
 * - Escolhe um diretório para o novo projeto NodeJs e inicia o NPM {npm init} (cria um projeto node na pasta selecionada)
 * - Testar o novo projeto com o comando {node <app>}
 * - Instala o Express {npm install express --save} (--save inclue a instalação na pasta node_modules do projeto)
@@ -25,6 +20,11 @@
 * - Instalar express validator {npm install express-validator --save} (plugin que valida os dados do post)
 * - Instalar express-session {npm install express-session --save} (plugin para manipular cookies)
 * - Instalar o crypto {npm install crypto --save} (plugin para criptografar dados)
+* - Abrir/Mudar terminal, aperta "Ctrl + Shift + P" procura settings.json e adiciona: 
+*	//"terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+*   //"terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+*	//"terminal.integrated.shell.windows": "C:\\Program Files\\MongoDB\\Server\\4.0\\bin\\mongo.exe",
+*	descomentando o terminal que deseja abrir
 */
 
 /* importar o módulo do framework express */
